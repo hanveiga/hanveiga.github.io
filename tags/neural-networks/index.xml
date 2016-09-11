@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Neural Networks on (Quantitative) models and (klein) bottles</title>
+    <link>http://hanveiga.github.io/tags/neural-networks/</link>
+    <description>Recent content in Neural Networks on (Quantitative) models and (klein) bottles</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 10 Sep 2016 08:28:00 -0600</lastBuildDate>
+    <atom:link href="http://hanveiga.github.io/tags/neural-networks/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>How to Run Textsum (with pedantic details)</title>
+      <link>http://hanveiga.github.io/post/Running%20Textsum%20with%20all%20details%20explained/</link>
+      <pubDate>Sat, 10 Sep 2016 08:28:00 -0600</pubDate>
+      
+      <guid>http://hanveiga.github.io/post/Running%20Textsum%20with%20all%20details%20explained/</guid>
+      <description>&lt;p&gt;Google recently released a text summarization task using TensorFlow. This guide will help you get set up on your machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; The dataset used to train the NN (Gigaset) is proprietary and requires a license. In this guide we use the example data and (maybe) some alternative dataset.&lt;/p&gt;
+
+&lt;p&gt;1) Clone the repo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; git clone https://github.com/tensorflow/models.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2) Install Tensorflow (&lt;a href=&#34;https://www.tensorflow.org/versions/r0.10/get_started/os_setup.html&#34;&gt;How to install TF&lt;/a&gt;) and &lt;a href=&#34;https://bazel.io/&#34;&gt;Bazel&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;3) In the repo folder, access folder &lt;em&gt;models&lt;/em&gt; and make a new folder to train your model. Copy the contents of &lt;em&gt;textsum&lt;/em&gt; into your new folder. Create a &lt;em&gt;WORKSPACE&lt;/em&gt; file and build. If you are like me, you might not have CUDA, so just remove &lt;em&gt;&amp;ndash;config=cuda&lt;/em&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;	mkdir textsumtrain
+	cp -r ../textsum ./
+	touch WORKSPACE
+	bazel build -c opt --config=cuda textsum/...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/hugo/compiled0.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4) Add the data to your folder. For example, if you use the example data:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;	mv textsum/data ./
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;5) Now we can run the training using the training data. Pay attention to the &lt;em&gt;data_path=&lt;/em&gt; and &lt;em&gt;vocab_path=&lt;/em&gt;. If you followed all the steps you can just copy paste what is below.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;bazel-bin/textsum/seq2seq_attention \
+  --mode=train \
+  --article_key=article \
+  --abstract_key=abstract \
+  --data_path=data/data \
+  --vocab_path=data/vocab \
+  --log_root=textsum/log_root \
+  --train_dir=textsum/log_root/train
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/hugo/training0.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And shortly:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/hugo/avg_loss0.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Yey! Go make a cup of tea and wait, cause it might take a while&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;# References:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/tensorflow/models/tree/master/textsum&#34;&gt;Textsum git&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://stackoverflow.com/questions/39182142/tensorflow-text-summarization-setup-what-is-a-workspace-file&#34;&gt;Stackoverflow thread&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+  
+  <meta charset="UTF-8">
+  <title>
+    Non scientific things I learned while working for a research group | (Quantitative) models and (klein) bottles
+  </title>
+
+
+  
+  <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hanveiga.github.io/post/131216-080149_/"/>
+
+  
+  <link rel="stylesheet" href="/css/sanitize.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+  <link rel="stylesheet" href="/css/highlight_monokai.css">
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/custom.css">
+  
+  
+  <link href="http://hanveiga.github.ioindex.xml" rel="alternate" type="application/rss+xml" title="(Quantitative) models and (klein) bottles" />
+  <link href="http://hanveiga.github.ioindex.xml" rel="feed" type="application/rss+xml" title="(Quantitative) models and (klein) bottles" />
+
+  
+  
+
+
+</head>
+
+
+
+<body>
+<div class="container">
+
+  
+  <header role="banner">
+    <div class="row gutters">
+      <div id="site-title" class="col span_6">
+        <h1><a href="http://hanveiga.github.io">(Quantitative) models and (klein) bottles</a></h1>
+        <h2>Random musings of a wannabe scientist</h2>
+      </div>
+      <div id="social" class="col span_6">
+        <ul>
+          <li><a href="https://twitter.com/hanveiga" target="_blank">Twitter</a></li>
+          
+          <li><a href="https://github.com/hanveiga" target="_blank">GitHub</a></li>
+          <li><a href="http://hanveiga.github.ioindex.xml" type="application/rss+xml" target="_blank">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+
+  
+  <main id="single" role="main">
+    <div class="article-header">
+      <h1>Non scientific things I learned while working for a research group</h1>
+      <div class="meta">
+        Dec 16, 2013 &nbsp;
+        
+      </div>
+    </div>
+    <article>
+      <p><strong>SublimeText with <a href="https://github.com/danielmagnussons/orgmode">orgMode</a></strong></p>
+
+<p>SublimeText is a pretty neat and lightweight editor, a bit like a dark, sleek Notepad++. Word on the street that a lot of start-ups use this as their preferred text editor. But the coolest thing (yes, my life is boring) is the organization plug in:</p>
+
+<p><center><img src="https://dl.dropboxusercontent.com/u/7825087/img/sublimetextawesome.png" alt="" /></p>
+
+<p>Look at it! Beautiful! Look at all the stuff I haven&rsquo;t done yet too. Not so beautiful!
+</center></p>
+
+<p>It&rsquo;s a powerful editor, filled with nice shortcuts:<br />
+<strong>c + ctrl</strong> to generate <a href="checkbox"> </a><br />
+<strong>cs + ctrl</strong> to generate [] (checkbox summary)<br />
+<strong>d + ctrl</strong> to generate date<br />
+<strong>* word *</strong> to highlight<br />
+more infos <a href="https://github.com/danielmagnussons/orgmode/blob/master/messages/install.org#features">here</a></p>
+
+<p><strong>Version control (using <a href="http://bitbucket.org">bitbucket</a> )</strong></p>
+
+<p>The idea of version control, very simply put, is that you keep track of the changes you make in your code, so you can easily see that has been changed, revert back changes and when it comes to giving it to someone else, they can look at how the project has been progressing. You can also track issues/add more written documentation. This is awesome if you are working with other people as you can add contributors/admins to your repo.</p>
+
+<p>Also please wipe that patronizing grin off your face, all you computer scientists/engineers/applied people who might be chuckling at my naivity regarding version control&hellip;</p>
+
+<p>n00b guide on how to start:
+1. Set up account on <a href="https://bitbucket.org/">bitbucket</a><br />
+2. Download <a href="http://git-scm.com/downloads">here</a><br />
+3. THE WORLD IS YOUR OYSTER. Sorta. I mean, your well maintained code is your oyster.</p>
+
+<p><strong>The only commands you need to know (really):</strong><br />
+    <strong>git status</strong> - shows list of things that has been changed / untracked files<br />
+    <strong>git add <em>files</em></strong> - adds files to be committed to the repo<br />
+    <strong>git commit -m &ldquo;comment about change&rdquo;</strong> - gives the comment to the files you are about to upload to the repo<br />
+    <strong>git push</strong> - uploads the changes to your repo<br />
+    <strong>git pull</strong> - you get the (what should be the) latest version of your code, basically what is online on your repo<br />
+    <strong>git checkout <em>file</em></strong> - revert local changes back to whatever is on your repo</p>
+
+<p>More concise details found <a href="https://confluence.atlassian.com/display/BITBUCKET/Bitbucket+101;jsessionid=B969765A9AEDB2626BA8C45FAF4AA936">here</a></p>
+
+<p><strong>Matlab</strong></p>
+
+<ul>
+<li>Click over a function and press <strong>ctrl + d</strong> to open the function file. I was super happy. Shut up.<br /></li>
+<li>If you have a clear all that executes before your break points, they get wiped off. By the way, the debugging tool in matlab is really nice. If you don&rsquo;t really know how to use it, I suggest you take a look at <a href="http://en.wikibooks.org/wiki/MATLAB_Programming/Debugging_M_Files">this</a>.</li>
+<li>Matlab <strong>can</strong> run out of memory, in fact, it&rsquo;s really crap for anything that requires a lot of memory because it allocates everything as doubles by default. Good luck fiddling with your very sparse bazillion by bazillion matrix if you do it stupidly. So: sparse(), [spy() is a good function to take a look at how your matrix is populated], typecasting and smarter algorithms can make a huge difference, like everything in life.</li>
+<li>There are no sparse matrices using singles, but there&rsquo;s a script that you can use <a href="http://www.mathworks.ch/matlabcentral/fileexchange/25939-sparsepack">here</a></li>
+</ul>
+
+<p><strong>Report writing related stuff</strong></p>
+
+<ul>
+<li>Keep a folder with all the papers you reviewed, you&rsquo;ll probably have to make references.<br /></li>
+<li>Plotting stuff takes a long, long time. Always label your plots.</li>
+</ul>
+
+<p>HAPPY RESEARCHING. KISSES.</p>
+
+      
+      
+      
+    </article>
+    
+
+
+  </main>
+  
+  <nav class="pagination-single">
+    
+      <span class="previous">&larr; <a href="http://hanveiga.github.io/post/131126-030618_personal-statement-for-computational-science-at-eth-zurich/" rel="prev">Personal Statement for Computational Science at ETH Zurich</a></span>
+    
+    
+      <span class="next"><a href="http://hanveiga.github.io/post/131230-063403_3d-print-your-gifts/" rel="next">3D print your gifts!</a> &rarr;</span>
+    
+  </nav>
+
+
+  
+  <footer role="contentinfo">
+    <div style="text-align:center;">
+      
+      
+    </div>
+  </footer>
+
+
+</div>
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+</body>
+</html>
+

@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on (Quantitative) models and (klein) bottles</title>
+    <link>http://hanveiga.github.io/post/</link>
+    <description>Recent content in Posts on (Quantitative) models and (klein) bottles</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 10 Sep 2016 08:28:00 -0600</lastBuildDate>
+    <atom:link href="http://hanveiga.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>How to Run Textsum (with pedantic details)</title>
+      <link>http://hanveiga.github.io/post/Running%20Textsum%20with%20all%20details%20explained/</link>
+      <pubDate>Sat, 10 Sep 2016 08:28:00 -0600</pubDate>
+      
+      <guid>http://hanveiga.github.io/post/Running%20Textsum%20with%20all%20details%20explained/</guid>
+      <description>&lt;p&gt;Google recently released a text summarization task using TensorFlow. This guide will help you get set up on your machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; The dataset used to train the NN (Gigaset) is proprietary and requires a license. In this guide we use the example data and (maybe) some alternative dataset.&lt;/p&gt;
+
+&lt;p&gt;1) Clone the repo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; git clone https://github.com/tensorflow/models.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2) Install Tensorflow (&lt;a href=&#34;https://www.tensorflow.org/versions/r0.10/get_started/os_setup.html&#34;&gt;How to install TF&lt;/a&gt;) and &lt;a href=&#34;https://bazel.io/&#34;&gt;Bazel&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;3) In the repo folder, access folder &lt;em&gt;models&lt;/em&gt; and make a new folder to train your model. Copy the contents of &lt;em&gt;textsum&lt;/em&gt; into your new folder. Create a &lt;em&gt;WORKSPACE&lt;/em&gt; file and build. If you are like me, you might not have CUDA, so just remove &lt;em&gt;&amp;ndash;config=cuda&lt;/em&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;	mkdir textsumtrain
+	cp -r ../textsum ./
+	touch WORKSPACE
+	bazel build -c opt --config=cuda textsum/...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/hugo/compiled0.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4) Add the data to your folder. For example, if you use the example data:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;	mv textsum/data ./
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;5) Now we can run the training using the training data. Pay attention to the &lt;em&gt;data_path=&lt;/em&gt; and &lt;em&gt;vocab_path=&lt;/em&gt;. If you followed all the steps you can just copy paste what is below.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;bazel-bin/textsum/seq2seq_attention \
+  --mode=train \
+  --article_key=article \
+  --abstract_key=abstract \
+  --data_path=data/data \
+  --vocab_path=data/vocab \
+  --log_root=textsum/log_root \
+  --train_dir=textsum/log_root/train
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/hugo/training0.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And shortly:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/hugo/avg_loss0.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Yey! Go make a cup of tea and wait, cause it might take a while&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;# References:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/tensorflow/models/tree/master/textsum&#34;&gt;Textsum git&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://stackoverflow.com/questions/39182142/tensorflow-text-summarization-setup-what-is-a-workspace-file&#34;&gt;Stackoverflow thread&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Some math puzzles</title>
+      <link>http://hanveiga.github.io/post/150318-123908_some-math-puzzles/</link>
+      <pubDate>Wed, 18 Mar 2015 12:39:00 -0600</pubDate>
+      
+      <guid>http://hanveiga.github.io/post/150318-123908_some-math-puzzles/</guid>
+      <description>&lt;p&gt;When I was in high school until maybe a year ago, I have always been into math puzzles. I am not particularly good, but I thought that solving math puzzles were the ultimate goal, and I got myself thinking about them lately, while walking home around 2 AM after a day in the computer lab working on my thesis.&lt;/p&gt;
+
+&lt;p&gt;So I want to share a few of my favourites here:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;In some countries, the shipping cost for a box of dimensions \( A \times B \times C \) will not be proportional to its volume, but rather to the sum $A + B + C$. (e.g. shipping a $1 \times 1 \times 27$ cm box costs 29CHF whereas a $3 \times 3 \times 3$ cm box cost only 9CHF.) Is there a situation where one can save money by packing one costly box inside another cheaper one?&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Find the smallest positive integer that leaves a remainder of $1$ when divided by $2$, a remainder of $2$ when divided by $3$, a remainder of $3$ when divided by $4$, &amp;hellip; , and a remainder of $9$ when divided by $10$&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Suppose that we throw $2012$ (or $n$) fair dice at the same time. What is the probability that the sum of the values of the upturned faces of the dice is divisible by $5$?&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Prove or disprove that if $n$ is odd and $0 \leq i \leq n − 1$, then&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;$$ \left( (-1)^i {{n-1}\choose{i}} \right) - 1 $$&lt;/p&gt;
+
+&lt;p&gt;is always a multiple of $n$.&lt;/p&gt;
+
+&lt;p&gt;I don&amp;rsquo;t remember the solutions anymore, but I&amp;rsquo;ll think about them on my next walk and post some of the solutions in the next post. I hope I can still solve them.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Nice things to read</title>
+      <link>http://hanveiga.github.io/post/140904-101911_nice-things-to-read/</link>
+      <pubDate>Thu, 04 Sep 2014 10:19:00 -0600</pubDate>
+      
+      <guid>http://hanveiga.github.io/post/140904-101911_nice-things-to-read/</guid>
+      <description>&lt;p&gt;Good (internet) things to read:&lt;br /&gt;
+- &lt;a href=&#34;https://news.ycombinator.com/&#34;&gt;hackernews&lt;/a&gt;&lt;br /&gt;
+- Financial Times or Reuters for quick news&lt;br /&gt;
+- &lt;a href=&#34;http://upstart.bizjournals.com/&#34;&gt;http://upstart.bizjournals.com/&lt;/a&gt;&lt;br /&gt;
+- &lt;a href=&#34;http://blog.thinknewfound.com/&#34;&gt;Quantitative musings from Newfound Research&lt;/a&gt;&lt;br /&gt;
+- &lt;a href=&#34;http://www.ignant.de&#34;&gt;Ignant - arty website&lt;/a&gt;&lt;br /&gt;
+- &lt;a href=&#34;https://medium.com/&#34;&gt;Some stuff at medium&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;There are some funny &lt;em&gt;weird internet things&lt;/em&gt; but I won&amp;rsquo;t mention in the daylight. ;)
+&lt;!--4chan, efukt--&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>EMF talk on &#34;Machine learning and its usage in creepy internet stalking&#34;</title>
+      <link>http://hanveiga.github.io/post/140831-042401_emf-talk-on-machine-learning-and-its-usage-in-creepy-internet-stalking/</link>
+      <pubDate>Sun, 31 Aug 2014 16:13:00 -0600</pubDate>
+      
+      <guid>http://hanveiga.github.io/post/140831-042401_emf-talk-on-machine-learning-and-its-usage-in-creepy-internet-stalking/</guid>
+      <description>&lt;p&gt;Just came back from &lt;a href=&#34;https://www.emfcamp.org/&#34;&gt;EMF&lt;/a&gt; and it was great! A lot of awesome talks, very creative projects and cool hobbies, extremely inspiring people! Definitely recommend others to join next year!&lt;/p&gt;
+
+&lt;p&gt;A quick entry, ended up also doing a talk on &amp;ldquo;Machine learning and its usage in creepy internet stalking&amp;rdquo; because I thought it would be funny to share the &lt;a href=&#34;https://dl.dropboxusercontent.com/u/7825087/Machine%20learning%20and%20its%20use%20in%20creepy%20internet.pptx&#34;&gt;slides&lt;/a&gt; and the papers used:
+- &lt;a href=&#34;http://www.pnas.org/content/110/15/5802.abstract&#34;&gt;Private traits and attributes are predictable from digital records of human behavior&lt;/a&gt;
+- &lt;a href=&#34;http://keg.cs.tsinghua.edu.cn/jietang/publications/PKDD11-Tang-et-al-inferring-social-tie.pdf&#34;&gt;Learning to Infer Social Ties in Large Networks&lt;/a&gt;
+- &lt;a href=&#34;http://link.springer.com/chapter/10.1007%2F978-0-387-77672-9_10&#34;&gt;Mobile Phone Data for Inferring Social Network Structure&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Short entry, I will add things to this after recharging energy (and watching Fargo)&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Illustrated thoughts on the examination period</title>
+      <link>http://hanveiga.github.io/post/140218-032943_illustrated-thoughts-on-the-examination-period/</link>
+      <pubDate>Tue, 18 Feb 2014 15:29:00 -0600</pubDate>
+      
+      <guid>http://hanveiga.github.io/post/140218-032943_illustrated-thoughts-on-the-examination-period/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/e14/e14deathbymath.jpg&#34; alt=&#34;&#34; /&gt;
+The feeling of having to prove Dynkin&amp;rsquo;s lemma&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/e14/e14disappoint.jpg&#34; alt=&#34;&#34; /&gt;
+Being stuck on a line of a proof for 30 minutes, from page 11&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/e14/e14dp.jpg&#34; alt=&#34;&#34; /&gt;&lt;br /&gt;
+Thoughts on Dynamic Programming&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/e14/e14existencialist.jpg&#34; alt=&#34;&#34; /&gt;&lt;br /&gt;
+After proving some property of markov chains by plugging different formulas and spotting the said property&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/e14/e14haventspokentopeopleinalongtime.jpg&#34; alt=&#34;I haven&#39;t spoken to anyone in 14 hours&#34; /&gt;
+After spending 14 hours without interacting with anyone&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/e14/e14machinelearning.jpg&#34; alt=&#34;&#34; /&gt;
+General dementia&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/e14/e14normal.jpg&#34; alt=&#34;&#34; /&gt;
+The realization that &lt;em&gt;everything&lt;/em&gt; is approximated as a gaussian&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/e14/e14oral.jpg&#34; alt=&#34;&#34; /&gt;&lt;br /&gt;
+Finishing an oral exam and wanting to apologize to the professor for wasting his time&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/e14/e14pt.jpg&#34; alt=&#34;&#34; /&gt;&lt;br /&gt;
+Things to &lt;strong&gt;not&lt;/strong&gt; say&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/e14/e14report.jpg&#34; alt=&#34;&#34; /&gt;&lt;br /&gt;
+How to not proof read a scientific report&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/e14/e14slln.jpg&#34; alt=&#34;&#34; /&gt;&lt;br /&gt;
+Professor &lt;em&gt;still&lt;/em&gt; doesn&amp;rsquo;t think I&amp;rsquo;m funny&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/e14/e14totoro.jpg&#34; alt=&#34;&#34; /&gt;
+Sudden realization, after exams, that I am stupid&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Perverted Mathematics</title>
+      <link>http://hanveiga.github.io/post/140208-045732_perverted-mathematics/</link>
+      <pubDate>Sat, 08 Feb 2014 04:57:00 -0600</pubDate>
+      
+      <guid>http://hanveiga.github.io/post/140208-045732_perverted-mathematics/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;http://en.wikipedia.org/wiki/Tits_group&#34;&gt;Tits group&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+The tits group is actually a pretty huge group (order 17971200) found by Jacques Tits. I have to say I don&amp;rsquo;t know of anything that seems very interesting to share on this matter, so if you happen to be a Group theorist please comment below and enlighten us!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;http://en.wikipedia.org/wiki/Group_action&#34;&gt;Group Action&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+Not only an alternative to a gang bang but also a description of symmetries of objects using groups.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;http://en.wikipedia.org/wiki/Hairy_ball_theorem&#34;&gt;Hairy ball theorem&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+Essentially, the idea is that whenever you try to comb a hair ball flat, there will always be at least one point where the hair sticks out. The famous sentence: &amp;ldquo;You can&amp;rsquo;t comb a hairy ball flat without creating a cowlick&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;http://en.wikipedia.org/wiki/Slutsky%27s_theorem&#34;&gt;Slutsky Theorem&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+Essentially this theorem has nothing to do with sluts but obviously, I am childish. Actually, this theorem basically gives you information on the convergence of the quotient of two sequences random elements knowing some convergence properties of the distinct two sequences.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Why I am stopping ETH for 6 months and how this blog will be about the life of an Intern</title>
+      <link>http://hanveiga.github.io/post/140208-044851_why-i-am-stopping-eth-for-6-months-and-how-this-blog-will-be-about-the-life-of-an-intern/</link>
+      <pubDate>Sat, 08 Feb 2014 04:48:00 -0600</pubDate>
+      
+      <guid>http://hanveiga.github.io/post/140208-044851_why-i-am-stopping-eth-for-6-months-and-how-this-blog-will-be-about-the-life-of-an-intern/</guid>
+      <description>&lt;p&gt;My choice of doing a 6 months break from University has been received with some hostility, concern and doubt by a lot of people I mentioned this to. I have to admit, that sometimes I think about the choice myself, whether it is the correct one.&lt;/p&gt;
+
+&lt;p&gt;I suppose this is the first time I go &amp;ldquo;off track&amp;rdquo; from this &amp;ldquo;being on-time thing&amp;rdquo;, whatever it is. I am not even sure how to describe it, but I suppose I have always been on time or even early (because I am a December baby), for my age, regarding the things I have accomplished. Starting a masters degree at age of 20 and having worked for 3 different companies in major industry sectors was a pretty strange thing for most Swiss people. The prospect of finishing my masters when I was 22 was also pretty strange, and starting a PhD at the age of 22 would be a pretty rad thing, I suppose. I would easily pass off as a genius solely because I never deviated from my goal.&lt;/p&gt;
+
+&lt;p&gt;But what is it, this goal, even? More and more I doubt the substance of my goal, perhaps it&amp;rsquo;s just the thing that I am expected to do, in the sense that, it all falls into place neatly. It&amp;rsquo;s a very linear progression. Bachelors, masters, PhD, good university, good companies, yada, yada, yada. But I often get left with a sense of unfulfillment, as if most of my education were fake. I often feel like I can&amp;rsquo;t do anything or that I am not learning at all. I am an exam passing machine that does 40 credits a semester. Look at me, I&amp;rsquo;m so good. Except I&amp;rsquo;m not, really. I barely passed my last set of exams and I have the feeling it was due to three facts: the realization that I was doing things that I really didn&amp;rsquo;t like joined with the feeling that after an exam all I have is an empty mind - relieved to dump all the information I absorbed for the sole purpose of passing yet another exam, getting yet another &amp;ldquo;trophy&amp;rdquo;, another 8 credits, plus the sudden confirmation that life is too short for wasting time doing things you don&amp;rsquo;t like.&lt;/p&gt;
+
+&lt;p&gt;So, I need to rethink my goal, my direction. What&amp;rsquo;s the point of running full speed towards something that has yet no shape, no meaning nor purpose? My goals are these fuzzy things that I seem to approximate slowly. What I know is: I am happy I switched from studying Fluid Dynamics to Robotics because this is interesting. I am happy I am doing two courses that I really don&amp;rsquo;t need because they are interesting. Furthermore, I know I am not happy about the prospect of doing a thesis right away in some topic I feel sorta blasé about, and yet again, wasting 2 years of a masters for the sake of another line on my CV.&lt;/p&gt;
+
+&lt;p&gt;This should be intuitive, the idea of being happy and satisfied, but for me, it&amp;rsquo;s like I am taking baby steps towards something that is worth spending time on and slowly trying to release my mindset from what I have set myself to do, blindly, for the sake of being nice on paper. And this is why it is absolutely clear to me that I need some time off academia and figure things in general.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>3D print your gifts!</title>
+      <link>http://hanveiga.github.io/post/131230-063403_3d-print-your-gifts/</link>
+      <pubDate>Mon, 30 Dec 2013 06:34:00 -0600</pubDate>
+      
+      <guid>http://hanveiga.github.io/post/131230-063403_3d-print-your-gifts/</guid>
+      <description>&lt;p&gt;Hi everyone, hope you all had a great Christmas and are getting ready for the new year. During Christmas I always find it hard to come up with presents for people, I mean, most of my friends are middle class privileged boys and girls and there&amp;rsquo;s not much I can offer then that is actually useful. But I did find something pretty damn awesome (well, from the perspective of a geek&amp;hellip;), which was 3D PRINTING GIFTS.&lt;br /&gt;
+Ahh, isn&amp;rsquo;t this super exciting?&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;
+&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/49435156680611e381491257ae94662a_7.jpg&#34; alt=&#34;&#34; /&gt;
+This is a Koch tea light holder, very simple model, printed with a makerbot. &lt;3 &lt;3
+&lt;/center&gt;&lt;/p&gt;
+
+&lt;p&gt;And it doesn&amp;rsquo;t have to be &lt;em&gt;useless&lt;/em&gt; (in no way undermines how cool it looks tho), there are pretty neat models available on the internets, such as: &lt;a href=&#34;http://www.thingiverse.com/thing:31525&#34;&gt;iPhone 4 dock&lt;/a&gt;, &lt;a href=&#34;http://www.thingiverse.com/thing:32446&#34;&gt;business card holder&lt;/a&gt;, &lt;a href=&#34;http://www.thingiverse.com/thing:14079&#34;&gt;DSLR lens cap&lt;/a&gt;, etc&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Where can you find free models?&lt;/strong&gt;&lt;br /&gt;
+Depends on the printer you have I think, if you happen to have a Makerbot (or similar), this is the website I linked before:
+&lt;a href=&#34;http://www.thingiverse.com/&#34;&gt;Thingiverse&lt;/a&gt; - You basically need the .STL file.
+You can also venture on &lt;a href=&#34;http://blender.org&#34;&gt;Blender&lt;/a&gt; and produce your own models.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Where you find the 3D printer?&lt;/strong&gt;&lt;br /&gt;
+A shout out for the Zurchers, there&amp;rsquo;s one owned by the student group &lt;a href=&#34;http://www.bastli.ethz.ch/index.php?page=start&#34;&gt;Bastli&lt;/a&gt;. You pay for the material, which is 15 CHF per 100g. (What I printed above was around 2CHF ;) ).&lt;br /&gt;
+Otherwise, if you don&amp;rsquo;t have the luxury to be an ETH/UZH student, I believe quite a few technical universities have access to a 3D printer.&lt;/p&gt;
+
+&lt;p&gt;Anyway, this post is a bit late for Christmas, but next time you need something geek cool &amp;amp; pretty cheap, there&amp;rsquo;s an option to keep mind! ;)&lt;/p&gt;
+
+&lt;p&gt;If YOU happen to have a printer, or know some other good models website, and want me to list it here, send me an email! han.veiga@gmail.com&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Non scientific things I learned while working for a research group</title>
+      <link>http://hanveiga.github.io/post/131216-080149_/</link>
+      <pubDate>Mon, 16 Dec 2013 08:01:00 -0600</pubDate>
+      
+      <guid>http://hanveiga.github.io/post/131216-080149_/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;SublimeText with &lt;a href=&#34;https://github.com/danielmagnussons/orgmode&#34;&gt;orgMode&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;SublimeText is a pretty neat and lightweight editor, a bit like a dark, sleek Notepad++. Word on the street that a lot of start-ups use this as their preferred text editor. But the coolest thing (yes, my life is boring) is the organization plug in:&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/sublimetextawesome.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Look at it! Beautiful! Look at all the stuff I haven&amp;rsquo;t done yet too. Not so beautiful!
+&lt;/center&gt;&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s a powerful editor, filled with nice shortcuts:&lt;br /&gt;
+&lt;strong&gt;c + ctrl&lt;/strong&gt; to generate &lt;a href=&#34;checkbox&#34;&gt; &lt;/a&gt;&lt;br /&gt;
+&lt;strong&gt;cs + ctrl&lt;/strong&gt; to generate [] (checkbox summary)&lt;br /&gt;
+&lt;strong&gt;d + ctrl&lt;/strong&gt; to generate date&lt;br /&gt;
+&lt;strong&gt;* word *&lt;/strong&gt; to highlight&lt;br /&gt;
+more infos &lt;a href=&#34;https://github.com/danielmagnussons/orgmode/blob/master/messages/install.org#features&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Version control (using &lt;a href=&#34;http://bitbucket.org&#34;&gt;bitbucket&lt;/a&gt; )&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The idea of version control, very simply put, is that you keep track of the changes you make in your code, so you can easily see that has been changed, revert back changes and when it comes to giving it to someone else, they can look at how the project has been progressing. You can also track issues/add more written documentation. This is awesome if you are working with other people as you can add contributors/admins to your repo.&lt;/p&gt;
+
+&lt;p&gt;Also please wipe that patronizing grin off your face, all you computer scientists/engineers/applied people who might be chuckling at my naivity regarding version control&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;n00b guide on how to start:
+1. Set up account on &lt;a href=&#34;https://bitbucket.org/&#34;&gt;bitbucket&lt;/a&gt;&lt;br /&gt;
+2. Download &lt;a href=&#34;http://git-scm.com/downloads&#34;&gt;here&lt;/a&gt;&lt;br /&gt;
+3. THE WORLD IS YOUR OYSTER. Sorta. I mean, your well maintained code is your oyster.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The only commands you need to know (really):&lt;/strong&gt;&lt;br /&gt;
+    &lt;strong&gt;git status&lt;/strong&gt; - shows list of things that has been changed / untracked files&lt;br /&gt;
+    &lt;strong&gt;git add &lt;em&gt;files&lt;/em&gt;&lt;/strong&gt; - adds files to be committed to the repo&lt;br /&gt;
+    &lt;strong&gt;git commit -m &amp;ldquo;comment about change&amp;rdquo;&lt;/strong&gt; - gives the comment to the files you are about to upload to the repo&lt;br /&gt;
+    &lt;strong&gt;git push&lt;/strong&gt; - uploads the changes to your repo&lt;br /&gt;
+    &lt;strong&gt;git pull&lt;/strong&gt; - you get the (what should be the) latest version of your code, basically what is online on your repo&lt;br /&gt;
+    &lt;strong&gt;git checkout &lt;em&gt;file&lt;/em&gt;&lt;/strong&gt; - revert local changes back to whatever is on your repo&lt;/p&gt;
+
+&lt;p&gt;More concise details found &lt;a href=&#34;https://confluence.atlassian.com/display/BITBUCKET/Bitbucket+101;jsessionid=B969765A9AEDB2626BA8C45FAF4AA936&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Matlab&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Click over a function and press &lt;strong&gt;ctrl + d&lt;/strong&gt; to open the function file. I was super happy. Shut up.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;If you have a clear all that executes before your break points, they get wiped off. By the way, the debugging tool in matlab is really nice. If you don&amp;rsquo;t really know how to use it, I suggest you take a look at &lt;a href=&#34;http://en.wikibooks.org/wiki/MATLAB_Programming/Debugging_M_Files&#34;&gt;this&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Matlab &lt;strong&gt;can&lt;/strong&gt; run out of memory, in fact, it&amp;rsquo;s really crap for anything that requires a lot of memory because it allocates everything as doubles by default. Good luck fiddling with your very sparse bazillion by bazillion matrix if you do it stupidly. So: sparse(), [spy() is a good function to take a look at how your matrix is populated], typecasting and smarter algorithms can make a huge difference, like everything in life.&lt;/li&gt;
+&lt;li&gt;There are no sparse matrices using singles, but there&amp;rsquo;s a script that you can use &lt;a href=&#34;http://www.mathworks.ch/matlabcentral/fileexchange/25939-sparsepack&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Report writing related stuff&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Keep a folder with all the papers you reviewed, you&amp;rsquo;ll probably have to make references.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Plotting stuff takes a long, long time. Always label your plots.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;HAPPY RESEARCHING. KISSES.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Personal Statement for Computational Science at ETH Zurich</title>
+      <link>http://hanveiga.github.io/post/131126-030618_personal-statement-for-computational-science-at-eth-zurich/</link>
+      <pubDate>Tue, 26 Nov 2013 15:06:00 -0600</pubDate>
+      
+      <guid>http://hanveiga.github.io/post/131126-030618_personal-statement-for-computational-science-at-eth-zurich/</guid>
+      <description>&lt;p&gt;Given that a relatively large amount of people have asked me to see the personal statement I used to apply to ETH, I thought: why not post it online, so everyone can scrutinize my awful English?? (and maybe help someone who might be interested in applying to CSE!)&lt;/p&gt;
+
+&lt;p&gt;&amp;ldquo;&lt;strong&gt;Personal Statement - MSc Computational Science and Engineering&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;It is fascinating how the flow of a river, the evolution of a community or the formation of hurricanes can all be translated into a logical language such as Mathematics. In an ever evolving, increasingly quantitative world, information and knowledge have never been so valued as nowadays. Therefore, the need to understand and model such phenomena through rigorous methods can have incredible benefits for society.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;The increasing availability of computational power, through cloud computing and processor parallelisation, has revolutionised the understanding and methodology to solve Engineering and Mathematical problems, allowing the analysis and dissection of problems that before were too dense to be explored. With this in mind, I have gained significant experience in Computing through work experience, university societies and optional modules as part of my degree.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Having studied Mathematics at Imperial College as an undergraduate and having obtained a solid foundation in Algebra, Calculus, Numerical Analysis and Mathematical Physics, I feel prepared to undertake the MSc in Computational Science and Engineering. During my penultimate year research project, I studied numerical methods and used Finite Difference methods to solve evolution Partial Differential Equations. In my final year, I am studying Scientific Computation, being currently placed in the upper 10th percentile of my class. Here, I use C to solve different problems; for example, I implemented the Discrete Sine Transformation to quickly and efficiently solve the Poisson’s equation. This is definitely one of the most challenging and interesting subjects I have studied during my degree.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Looking back at the various research projects I undertook, the one I enjoyed the most was working with the Aeronautics Department of Imperial College during the summer of 2010. I researched on a pioneering technique to model fracture points and elasticity in materials, namely, aeroplane wings. This showed me the versatile and applicable character that is truly unique to Mathematics.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Undertaking the MSc in Computational Science and Engineering is a logical continuation of my learning process given my passion for Mathematics and Computing. The unique aspect of this particular Master’s course is that it is multidisciplinary, giving me the opportunity to build on my computational and mathematical understanding. Looking at the courses offered I am very excited by the diverse range in Informatics, Fluid Dynamics and Physics offered by this course.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;I am highly motivated to start this Master’s program in ETH Zurich, particularly because of its excellence in research and teaching. Thank you for considering my application and I look forward to hearing from you.&lt;/em&gt;&amp;ldquo;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Travel journals</title>
+      <link>http://hanveiga.github.io/post/131114-050052_travel-journals/</link>
+      <pubDate>Thu, 14 Nov 2013 17:00:00 -0600</pubDate>
+      
+      <guid>http://hanveiga.github.io/post/131114-050052_travel-journals/</guid>
+      <description>&lt;p&gt;So I am one of those hipster kids who still travel with a leather cover notebook, where I occasionally doodle when I see something interesting.&lt;/p&gt;
+
+&lt;p&gt;I got this notebook just before I moved to Zurich, still halfway through it.&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;
+&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/IMG_1073_1_1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/IMG_1070_1_1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/IMG_1069_1_1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/IMG_1067_1_1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/IMG_1053_1_1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/IMG_1065_1_1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/IMG_1066_1_1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/IMG_1063_1_1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/IMG_1051_1_1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/IMG_1055_1_1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/IMG_1057_1_1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/IMG_1060_1_1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>10 signs you are adjusting to studying in Zurich</title>
+      <link>http://hanveiga.github.io/post/130730-0412_10-signs-you-are-adjusting-to-studying-in-zurich/</link>
+      <pubDate>Tue, 30 Jul 2013 03:34:00 -0600</pubDate>
+      
+      <guid>http://hanveiga.github.io/post/130730-0412_10-signs-you-are-adjusting-to-studying-in-zurich/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Your emails contain a whole lot less of these tzpos&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/880px-German-T2-Keyboard-Prototype-May-2012.jpg&#34; alt=&#34;&#34; /&gt;
+Seriouslz what the hell&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;People finally stopped thinking you went to Sweden&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Impressed that this actually exists: (&lt;a href=&#34;http://sweden-not-switzerland.blogspot.ch/&#34;&gt;http://sweden-not-switzerland.blogspot.ch/&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;You are no longer outraged by the fact that everything is closed on Sunday&lt;/strong&gt;
+&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/tqoCk.gif&#34; alt=&#34;&#34; /&gt;
+Hell yea, will eat this weekend&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;You learned that throwing away bottles in the evening IS PROHIBITED&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/glass.png&#34; alt=&#34;Glass&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Even if previously you hated those biking-loving idiots who scorn at how much pollution cars cause and how much slower it is to use public transportation, you probably ended up becoming one of them&amp;hellip;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/pee-wee-herman-riding-his-bike.gif&#34; alt=&#34;Pee Wee&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;You became much more punctual&amp;hellip;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Because the train actually comes at 21:43 and parties actually sell out at 21:10&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The parties organized by your university still suck&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;But going anywhere else is way too expensive, so you still end up on the dancefloor that looks like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/LsKyyVL.gif&#34; alt=&#34;Too many dicks on the dancefloor&#34; /&gt;
+Bonus points if you have been grinded by some drunk lad because of your System admin ponytail.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;You are no longer surprised about how long you can pretend to speak German by using the following words: &amp;ldquo;Genau&amp;rdquo; &amp;ldquo;Ganz genau&amp;rdquo; &amp;ldquo;Tip top&amp;rdquo;.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;After 12AM you know it&amp;rsquo;s pretty much impossible to go back home (unless you have a bike)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;So you resign yourself to keep partying or finding a nice bench on the street. It&amp;rsquo;s okay, if there&amp;rsquo;s a safe place to sleep on the streets, it&amp;rsquo;s in Switzerland.
+&lt;img src=&#34;https://dl.dropboxusercontent.com/u/7825087/img/5182108929_74803c38d6.jpg&#34; alt=&#34;&#34; /&gt;
+Standard Saturday morning in Langstrasse.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Fazer a Licenciatura em Inglaterra - Candidatura</title>
+      <link>http://hanveiga.github.io/post/130617-0953_fazer-a-licenciatura-em-inglaterra--candidatura/</link>
+      <pubDate>Mon, 17 Jun 2013 09:53:00 -0600</pubDate>
+      
+      <guid>http://hanveiga.github.io/post/130617-0953_fazer-a-licenciatura-em-inglaterra--candidatura/</guid>
+      <description>
+
+&lt;p&gt;Olá! Suponho que estejas agora no ensino secundário e estás a pensar em estudar no estrangeiro, em particular, em Inglaterra.&lt;/p&gt;
+
+&lt;p&gt;Ao contrário do sistema de acesso ao ensino superior Português, a candidatura em Inglaterra é um bocado mais longa, mas não tenhas medo, estás no sítio correcto para obter mais informação!&lt;/p&gt;
+
+&lt;p&gt;Primeiramente, deves começar a preparar a candidatura um ano antes de começares na universidade (Setembro/Outubro). Não te preocures, não vais passar um ano inteiro a preparar a candidatura mas há documentos e talvez testes que tens que fazer.&lt;/p&gt;
+
+&lt;p&gt;Há 3 etapas essenciais até à tua entrada para a universidade:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Fazer e enviar a candidatura (de Outubro a Janeiro);&lt;/li&gt;
+&lt;li&gt;Receber a(s) proposta(s) (desde a submissão da candidatura até Março);&lt;/li&gt;
+&lt;li&gt;Receber a confirmação do teu lugar pela universidade (pode demorar até Agosto).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;1-fazer-a-candidatura:5fbbfba582625382ea3a20e0e4701a38&#34;&gt;1. Fazer a candidatura&lt;/h2&gt;
+
+&lt;p&gt;Esta é feita através do &lt;a href=&#34;http://www.ucas.com/apply&#34;&gt;http://www.ucas.com/apply&lt;/a&gt;. Aqui crias a tua conta que está associada à tua candidatura, vai ser aqui também que vais receber as propostas das universidades. Depois de registares, podes escolher os cursos e as universidades que te interessam (até 5)!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i302.photobucket.com/albums/nn115/serverrestricted/ucas_zps1cdcb0db.png&#34; alt=&#34;O UCAS não vai gostar da minha contra troll...&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Vais precisar de várias coisas:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Personal statement (Carta de motivação):&lt;/strong&gt; É aqui que tu podes personalizar a tua candidatura. Porque é que queres tirar este curso? O que é que te faz especial, interessante ou um bom candidato ao curso? Fala dos teus interesses, hobbies, prémios, etc, mesmo que não sejam completamente relacionados com o teu curso!
+E mais uma coisa: relê o teu texto. Se não estás muito confortável com o Inglês, pede ajuda ao teu professor ou a alguém que seja fluente para te ajudar.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Reference (Referência):&lt;/strong&gt; Isto é normalmente escrito por um professor, director de turma (ou director da escola), alguém que te conheça bem. Na minha opinião, deve falar das tuas competências, especificamente, não só como és um excelente candidato ao curso mas também uma pessoa interessante, ambiciosa, etc&amp;hellip;! Isto tem de ser escrito em Inglês, por isso, não deixes isto para a última da hora, fala com a tua referência com antecedência!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Academic/Employment Records&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;[Tests]:&lt;/strong&gt; Isto não é compulsório mas normalmente as universidades pedem um teste de inglês, geralmente o TOEFL ou o IELTS. Pode demorar um bocado para marcar o teste, fazê-lo e receber os resultados, por isso, dá uma vista de olhos para saberes quais centros é que oferecem estes testes com antecedência.&lt;/p&gt;
+
+&lt;p&gt;Ah! Repara que a tua candidatura vai ser enviada para todas as universidades a que te candidatas, por isso, evita mencionar nomes de universidades (ou coisas muito específicas sobre uma universidade) na tua carta de motivação/referência!&lt;/p&gt;
+
+&lt;p&gt;Phew! Já reuniste todos os materiais e enviaste a candidatura muito antes do prazo de entrega (mas não te preocupes se foi mesmo em cima da hora, eu enviei a minha 20 minutos antes do último dia!). Boa!&lt;/p&gt;
+
+&lt;p&gt;##2. Propostas##
+A partir do momento em que entregas a candidatura até Março, deverás receber respostas das universidades.&lt;/p&gt;
+
+&lt;p&gt;Uma das duas coisas podem acontecer: Ou recebes uma proposta ou uma rejeição. Se recebeste uma rejeição, não te preocupes, as universidades têm critérios diferentes, por isso, isto não quer dizer que as outras te vão rejeitar também. (Eu recebi 2 rejeições antes de receber qualquer proposta!)&lt;/p&gt;
+
+&lt;p&gt;Sejamos positivos! Recebeste uma proposta. Existem dois tipos de propostas, a proposta sem condições (unconditional) ou a proposta com condições (conditional offer). Geralmente, se ainda não terminaste o ensino secundário, receberás uma oferta condicional que pede por notas em certas disciplinas (por exemplo, eu candidatei-me a Matemática, por isso, tinha uma condição na minha nota em Matemática), talvez um teste de inglês, ou a média do secundário.&lt;/p&gt;
+
+&lt;p&gt;[Já que me perguntaram, no meu caso, as propostas que recebi foram:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Imperial College London, para Licenciatura em Matemática Pura: 19 a Matemática, 18 a Biologia e 18 a Física, 19 na média do secundário e &lt;sup&gt;110&lt;/sup&gt;&amp;frasl;&lt;sub&gt;120&lt;/sub&gt; no TOEFL&lt;/li&gt;
+&lt;li&gt;Universidade de Edinburgo, para Licenciatura em Matemática Pura: 19 a Matemática, 18 na média do secundário e (aproximadamente&amp;hellip;) &lt;sup&gt;100&lt;/sup&gt;&amp;frasl;&lt;sub&gt;120&lt;/sub&gt; no TOEFL&lt;/li&gt;
+&lt;li&gt;Universidade de Edinburgo, para Licenciatura em Matemática e Inteligência Artificial: 19 a Matemática, 18 na média do secundário e (aproximadamente&amp;hellip;) &lt;sup&gt;100&lt;/sup&gt;&amp;frasl;&lt;sub&gt;120&lt;/sub&gt; no TOEFL]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Depois de receberes a(s) tua(s) proposta(s), tens que decidir quais é que te interessam. Só podes aceitar duas propostas, uma que vai ser a tua primeira escolha (Firm choice) e outra a tua segunda escolha (Insurance). Basicamente, o que acontece é que se não conseguires as notas que te pedem na tua primeira escolha, ainda tens a opção de ir para a segunda. Claro, isto só faz sentido se na tua primeira escolha tens uma proposta condicional!&lt;/p&gt;
+
+&lt;p&gt;##3. Confirmação##
+Okay, agora terminaste o secundário e já tens as tuas notas. Deves contactar a universidade para confirmar o teu lugar e brevemente, o estado da tua candidatura no UCAS deverá dizer &amp;ldquo;Accepted&amp;rdquo;! Boa!&lt;/p&gt;
+
+&lt;p&gt;Se por alguma razão não conseguiste cumprir os termos da tua proposta, deves contactar a universidade a que te candidataste e explicar porque é que não conseguiste. Muitas vezes a universidade ainda aceita o candidato, mesmo que este não tenha cumprido todas as condições da proposta.&lt;/p&gt;
+
+&lt;p&gt;Bem, espero que isto tenha sido útil e boa sorte para as candidaturas! Há uns sites que me ajudaram bastante:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.thestudentroom.co.uk&#34;&gt;http://www.thestudentroom.co.uk&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.ucas.com&#34;&gt;http://www.ucas.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.britishcouncil.org&#34;&gt;http://www.britishcouncil.org&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;E os sites das universidades que te interessam&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Boa sorte e se tiveres perguntas, podes enviar-me um email em han.veiga@gmail.com!&lt;/p&gt;
+
+&lt;p&gt;[&lt;strong&gt;Sobre mim:&lt;/strong&gt; &lt;em&gt;Eu fiz o secundário na Escola Secundária Miguel Torga em Monte Abrãao. No meu último ano, enviei a minha candidatura através do UCAS para várias universidades. Acabei por ir para o Imperial College London, onde fiz a Licenciatura em Matemática e agora estou em Zurique a fazer um mestrado.&lt;/em&gt;]&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Applying to undergraduate degree in the UK</title>
+      <link>http://hanveiga.github.io/post/130617-0828_applying-to-undergraduate-degree-in-the-uk/</link>
+      <pubDate>Mon, 17 Jun 2013 08:28:00 -0600</pubDate>
+      
+      <guid>http://hanveiga.github.io/post/130617-0828_applying-to-undergraduate-degree-in-the-uk/</guid>
+      <description>
+
+&lt;p&gt;Hello! So I guess you are now in high school and you are thinking about the idea of studying abroad, in particular, the UK. For some, this procedure might sound a bit daunting and complicated, but fear not because, you came to the right place!&lt;/p&gt;
+
+&lt;p&gt;In contrast with the university system in Portugal (and a lot of places in Continental Europe), the application to University in the UK is different and requires a little bit of planning ahead.&lt;/p&gt;
+
+&lt;p&gt;I would suggest you to start gathering your application material roughly one year before the year you are suppose to start at university, so September/October. Don&amp;rsquo;t worry! It&amp;rsquo;s not like you will spend a lot of time on the application, but it&amp;rsquo;s better to have enough time to have a solid application before the deadline.&lt;/p&gt;
+
+&lt;p&gt;The entrance to university has essentially three stages:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You make an application (from October till January);&lt;/li&gt;
+&lt;li&gt;You receive offer(s) (anytime from the day you apply till March);&lt;/li&gt;
+&lt;li&gt;You fulfill the offer and get the confirmation of admittance to university (this can take up to August).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;1-making-the-application:0e86272e9626bbab6be7328e18833205&#34;&gt;1. Making the application&lt;/h2&gt;
+
+&lt;p&gt;This is done through &lt;a href=&#34;http://www.ucas.com/apply&#34;&gt;http://www.ucas.com/apply&lt;/a&gt;. In here, you create an account for your application and it&amp;rsquo;s also here where you will get offers from different universities. So after you register, you can choose the degree(s) and universities you want to apply to, 5 in total, so choose wisely!&lt;/p&gt;
+
+&lt;p&gt;You will need several things:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Personal statement:&lt;/strong&gt; This is where you can personalise your application. Why do you want to study this degree? What makes you interesting, special or simply a good fit? Don&amp;rsquo;t forget to mention your passions, interests, accomplishments (in or outside the field you are applying to). Also, why do you want to go to England? Last piece of advice: &lt;em&gt;Proof read, proof read and proof read.&lt;/em&gt; If you aren&amp;rsquo;t too comfortable in English, ask your English professor for help.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Reference:&lt;/strong&gt; This is usually written by a professor/director of school. I would say it should be focused in why you are a good candidate and what have you accomplished until now. This should be written in English.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Academic/Employment Records&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;[Tests]:&lt;/strong&gt; Although this is not compulsory, odds are you will be asked, in your offer, to do an English test if you aren&amp;rsquo;t a native English speaker. Normally, it&amp;rsquo;s either TOEFL or IELTS. It can take a while to get these tests booked (and their results) so if you are 100% sure you want to go to England, you should take them anytime before (up to 2 years prior to the application&amp;hellip;)&lt;/p&gt;
+
+&lt;p&gt;Note that you only submit one application for all the places and degrees you are applying to, so, for instance, you shouldn&amp;rsquo;t mention why you want to go to X, Y, Z university because the others will read that too!&lt;/p&gt;
+
+&lt;p&gt;Anyway, phew! Well done, so now you submitted your application&amp;hellip; Hopefully well in advance from the deadline (Although, don&amp;rsquo;t worry, I submitted mine 20 minutes before the deadline&amp;hellip;) What now?&lt;/p&gt;
+
+&lt;p&gt;##2. Offers##
+So anytime from the date you applied to till March (if there&amp;rsquo;s no word until mid-march, you will probably get automatically rejected), you should receive updates on your application.
+So two things can happen: You either get an offer or you get rejected. If the latter happens, don&amp;rsquo;t get dishearten, admissions can be strange, and one rejection from one institution doesn&amp;rsquo;t mean you won&amp;rsquo;t get offers from others. (I actually got two rejections before I got offers.)&lt;/p&gt;
+
+&lt;p&gt;But let&amp;rsquo;s be positive! So now you received an offer. Again, two things can happen. You either get an unconditional offer (You are in! congratulations!) or a conditional offer. The idea is, if you still haven&amp;rsquo;t finished finish High School (or lack some tests, e.g: the English test), the universities want to make sure you don&amp;rsquo;t just relax with the offer and stop working, so they will ask you for certain grades (for instance, I applied for Mathematics, so I needed a good grade in Maths.), or an overall average.&lt;/p&gt;
+
+&lt;p&gt;So after you get your offers, you have to decide which ones to take. You can only have two offers, one being your &lt;em&gt;Firm choice&lt;/em&gt;
+and one being your &lt;em&gt;Insurance choice&lt;/em&gt; - the latter means that if for some reason, you don&amp;rsquo;t make the grades on your Firm choice, you can still go to your second choice. Obviously, this only makes sense if you put a Conditional Offer as your Firm Choice!&lt;/p&gt;
+
+&lt;p&gt;##3. Confirmation##
+So now, let&amp;rsquo;s fast forward again. You finished high school and got the grades, you should contact the university to confirm your place and your application status on UCAS should update! Well done!&lt;/p&gt;
+
+&lt;p&gt;If you for some reason didn&amp;rsquo;t make your grades, you should still contact the university you applied for and explain you situation. It can be that they will still accept you even if you missed your offer.&lt;/p&gt;
+
+&lt;p&gt;Well, anyway, this is a long entry! Some places where you can get some good information are listed below:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.thestudentroom.co.uk&#34;&gt;http://www.thestudentroom.co.uk&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.ucas.com&#34;&gt;http://www.ucas.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.britishcouncil.org&#34;&gt;http://www.britishcouncil.org&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;And the universities you are applying for websites!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Good luck and if you have any questions, feel free to email me on han.veiga@gmail.com!&lt;/p&gt;
+
+&lt;p&gt;[&lt;strong&gt;About me:&lt;/strong&gt; &lt;em&gt;I did my high school in a public school in Sintra, Portugal. During my final year I submitted my application through UCAS applying to several universities. I ended up in Imperial College London, where I graduated from a 3 year degree in Mathematics. I am currently doing my masters in Zurich.&lt;/em&gt;]&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Graduate Student Haikus</title>
+      <link>http://hanveiga.github.io/post/131029-010534_graduate-student-haikus/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://hanveiga.github.io/post/131029-010534_graduate-student-haikus/</guid>
+      <description>&lt;p&gt;I am an adult&lt;br /&gt;
+Dealing with most my issues&lt;br /&gt;
+By chain smokin&amp;rsquo; lots&lt;/p&gt;
+
+&lt;p&gt;Simulation works&lt;br /&gt;
+Hypnogogic visions start&lt;br /&gt;
+But talk done&lt;/p&gt;
+
+&lt;p&gt;Disappointed eyes&lt;br /&gt;
+That was my supervisor&lt;br /&gt;
+Goodbye P-h-D&lt;/p&gt;
+
+&lt;p&gt;Dark times&amp;rsquo; over&lt;br /&gt;
+Kidding, shush Florence&lt;br /&gt;
+O, hello Vodka&lt;/p&gt;
+
+&lt;p&gt;Finished all work&lt;br /&gt;
+Woops, did not see this pile&lt;br /&gt;
+Pass me the shotgun&lt;/p&gt;
+
+&lt;p&gt;Advancing science&lt;br /&gt;
+Or postponing real life&lt;br /&gt;
+Look, some lolcats!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
